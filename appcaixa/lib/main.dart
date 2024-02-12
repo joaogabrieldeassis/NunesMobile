@@ -76,50 +76,269 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return // Generated code for this Stack Widget...
+        Stack(
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        Align(
+          alignment: AlignmentDirectional(-0.03, -0.51),
+          child: Text(
+            'Numero do pedido\n',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  fontSize: 17,
+                ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(-0.03, -0.11),
+          child: Text(
+            'Quantidade',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  fontSize: 17,
+                ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(-0.49, 0.46),
+          child: FFButtonWidget(
+            onPressed: () {
+              print('Button pressed ...');
+            },
+            text: 'Limpar',
+            options: FFButtonOptions(
+              height: 40,
+              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+              iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              color: FlutterFlowTheme.of(context).tertiary,
+              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                    fontFamily: 'Readex Pro',
+                    color: Colors.white,
+                  ),
+              elevation: 3,
+              borderSide: BorderSide(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0.6, 0.46),
+          child: FFButtonWidget(
+            onPressed: () {
+              print('Button pressed ...');
+            },
+            text: 'Adicionar',
+            options: FFButtonOptions(
+              height: 40,
+              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+              iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              color: FlutterFlowTheme.of(context).success,
+              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                    fontFamily: 'Readex Pro',
+                    color: Colors.white,
+                  ),
+              elevation: 3,
+              borderSide: BorderSide(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0, -0.38),
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: TextFormField(
+              controller: _model.textController1,
+              focusNode: _model.textFieldFocusNode1,
+              autofocus: true,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelText: '0',
+                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                alignLabelWithHint: false,
+                hintStyle: FlutterFlowTheme.of(context).labelSmall,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0x00000000),
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).primary,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                focusedErrorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                filled: true,
+                fillColor: FlutterFlowTheme.of(context).alternate,
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    fontWeight: FontWeight.w500,
+                  ),
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              validator: _model.textController1Validator.asValidator(context),
+            ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0, 0.1),
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: TextFormField(
+              controller: _model.textController2,
+              focusNode: _model.textFieldFocusNode2,
+              autofocus: true,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelText: '0',
+                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                alignLabelWithHint: false,
+                hintStyle: FlutterFlowTheme.of(context).labelSmall,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0x00000000),
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).primary,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                focusedErrorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 29,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                filled: true,
+                fillColor: FlutterFlowTheme.of(context).alternate,
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    fontWeight: FontWeight.w500,
+                  ),
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              validator: _model.textController2Validator.asValidator(context),
+            ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0.69, -0.85),
+          child: Text(
+            '0',
+            textAlign: TextAlign.center,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  fontSize: 16,
+                ),
+          ),
+        ),
+        Opacity(
+          opacity: 10,
+          child: Align(
+            alignment: AlignmentDirectional(1.04, -1.02),
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Icon(
+                FFIcons.kaddShoppingCart,
+                color: FlutterFlowTheme.of(context).secondaryText,
+                size: 35,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
