@@ -11,17 +11,27 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: IniciarApp(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class IniciarApp extends StatefulWidget {
+  const IniciarApp({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<IniciarApp> createState() => MyHomePage();
+}
+
+class MyHomePage extends State<IniciarApp> {
   final PedidoService produtosService = PedidoService();
   final textNumeroDoProduto = TextEditingController();
   final textQuantidade = TextEditingController();
   double numeroDoProduto = 0;
   double? quantidade = 0;
+  int itensAdicionados = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +40,36 @@ class MyHomePage extends StatelessWidget {
           title: Text('Nunes-Caixa'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Card(
               elevation: 0,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Column(children: <Widget>[
+                          IconButton(
+                            onPressed: () {
+                              // Coloque aqui o código para executar quando o botão for pressionado.
+                            },
+                            icon: Image.asset(
+                              'assets/carrinho.png', // Caminho para a imagem dentro do diretório 'assets' do seu projeto
+                              width: 40, // Largura da imagem
+                              height: 40, // Altura da imagem
+                            ),
+                            // Estilize conforme necessário
+                            style: ElevatedButton.styleFrom(
+                              // Cor do texto do botão
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          Text(itensAdicionados.toString())
+                        ])
+                      ]),
+                  SizedBox(height: 100),
                   Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(children: <Widget>[
@@ -85,6 +118,7 @@ class MyHomePage extends StatelessWidget {
                                     numeroDoProduto);
                                 textNumeroDoProduto.clear();
                                 textQuantidade.clear();
+                                _incrementCounter;
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -129,5 +163,16 @@ class MyHomePage extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      itensAdicionados++;
+    });
   }
 }
