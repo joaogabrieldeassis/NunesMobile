@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:appcaixa/Models/Produto.dart';
+import 'package:appcaixa/Models/ProdutoNota.dart';
 import 'package:appcaixa/Service/pedidoService.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,13 +13,13 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: IniciarApp(),
+      home: IniciarApp('Nunes'),
     );
   }
 }
 
 class IniciarApp extends StatefulWidget {
-  const IniciarApp({super.key, required this.title});
+  const IniciarApp(this.title);
 
   final String title;
 
@@ -30,8 +32,9 @@ class MyHomePage extends State<IniciarApp> {
   final textNumeroDoProduto = TextEditingController();
   final textQuantidade = TextEditingController();
   double numeroDoProduto = 0;
-  double? quantidade = 0;
+  double quantidade = 0;
   int itensAdicionados = 0;
+  final produtoNota = <ProdutoNota>[];
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,7 @@ class MyHomePage extends State<IniciarApp> {
                         ),
                         TextField(
                           onChanged: (newValue) =>
-                              numeroDoProduto = double.parse(newValue),
+                              quantidade = double.parse(newValue),
                           controller: textQuantidade,
                           decoration: InputDecoration(
                             labelText: 'Quantidade',
@@ -114,11 +117,10 @@ class MyHomePage extends State<IniciarApp> {
                             onPressed: () {
                               if (numeroDoProduto != 0 &&
                                   numeroDoProduto != null) {
-                                produtosService.EncontrarProduto(
-                                    numeroDoProduto);
-                                textNumeroDoProduto.clear();
-                                textQuantidade.clear();
-                                _incrementCounter;
+                                BuscarNumero();
+                              } else {
+                                _showDialog("Digite um numero corretamente",
+                                    "Por favor digite novamente");
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -158,6 +160,27 @@ class MyHomePage extends State<IniciarApp> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          LimparCarrinho();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide(width: 1.0),
+                        ),
+                        child: Text(
+                          'Limpar carrinho',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.purple),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -167,12 +190,60 @@ class MyHomePage extends State<IniciarApp> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       itensAdicionados++;
     });
+  }
+
+  void _showDialog(String title, String subtitle) {
+    textNumeroDoProduto.clear();
+    textQuantidade.clear();
+    quantidade = 0;
+    numeroDoProduto = 0;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          title: new Text(title),
+          content: new Text(subtitle),
+          actions: <Widget>[
+            // define os botões na base do dialogo
+            new TextButton(
+              child: new Text("Fechar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void BuscarNumero() {
+    var produto = produtosService.EncontrarProduto(numeroDoProduto);
+    if (produto == null) {
+      _showDialog("O produto não foi encontrado", "Por favor digite novamente");
+    } else {
+      _incrementCounter();
+      RealizarCalculoDoProduto(produto as Produto);
+    }
+    textNumeroDoProduto.clear();
+    textQuantidade.clear();
+    quantidade = 0;
+    numeroDoProduto = 0;
+  }
+
+  void RealizarCalculoDoProduto(Produto produto) {
+    double valorTotal = quantidade != null ? produto.preco * quantidade : 0;
+    produtoNota.add(new ProdutoNota(
+        produto.nome, produto.preco, produto.numero, valorTotal, quantidade));
+  }
+
+  void LimparCarrinho() {
+    setState(() {
+      itensAdicionados = 0;
+    });
+    produtoNota.clear();
   }
 }
