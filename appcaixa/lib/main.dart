@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-main() => runApp(const DataTableExampleApp());
+//main() => runApp(const DataTableExampleApp());
+main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
@@ -54,7 +55,12 @@ class MyHomePage extends State<IniciarApp> {
                         Column(children: <Widget>[
                           IconButton(
                             onPressed: () {
-                              // Coloque aqui o código para executar quando o botão for pressionado.
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DataTableExample(produtoNota)),
+                              );
                             },
                             icon: Image.asset(
                               'assets/carrinho.png', // Caminho para a imagem dentro do diretório 'assets' do seu projeto
@@ -248,106 +254,129 @@ class MyHomePage extends State<IniciarApp> {
   }
 }
 
-class DataTableExampleApp extends StatelessWidget {
-  const DataTableExampleApp({super.key});
+// class DataTableExampleApp extends StatelessWidget {
+//   final List<ProdutoNota> produtoNota;
+//   const DataTableExampleApp({required this.produtoNota});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(title: const Text('DataTable Sample')),
+//         body: const DataTableExample(produtoNota: produtoNota),
+//       ),
+//     );
+//   }
+// }
+
+class DataTableExample extends StatelessWidget {
+  final List<ProdutoNota> produtoNota;
+
+  const DataTableExample(this.produtoNota);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('DataTable Sample')),
-        body: const DataTableExample(),
-      ),
-    );
-  }
-}
-
-class DataTableExample extends StatelessWidget {
-  const DataTableExample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        DataTable(
-          columns: [
-            DataColumn(
-              label: Text('Qtd'),
-            ),
-            DataColumn(
-              label: Text('N'),
-            ),
-            DataColumn(
-              label: Text('\$'),
-            ),
-            DataColumn(
-              label: Text('T\$'),
-            ),
-            DataColumn(
-              label: Text('A'),
-            ),
-          ],
-          rows: [
-            DataRow(cells: [
-              DataCell(
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 2), // Espaçamento horizontal personalizado
-                  child: Text('1'),
+          appBar: AppBar(title: const Text('DataTable Sample')),
+          body: ListView(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ExpensesApp()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(width: 1.0),
                 ),
-              ),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 1), // Espaçamento horizontal personalizado
-                  child: Text('Arshik'),
-                ),
-              ),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 1), // Espaçamento horizontal personalizado
-                  child: Text('56445'),
-                ),
-              ),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 1), // Espaçamento horizontal personalizado
-                  child: Text('3'),
-                ),
-              ),
-              DataCell(
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: Size(20, 20),
-                    side: BorderSide(width: 0.2, color: Colors.blue),
-                    backgroundColor: Color.fromARGB(255, 255, 61, 61),
-                  ),
-                  child: Container(
-                    width: 50,
-                    height: 20,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'X',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        color: Color.fromARGB(255, 7, 24, 41),
-                      ),
-                    ),
+                child: Text(
+                  'Voltar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.purple,
                   ),
                 ),
               ),
-            ]),
-            // Adicione mais linhas de dados aqui, se necessário
-          ],
-        ),
-        Divider(), // Adiciona uma linha separadora
-        // Adicione mais DataTables ou outros widgets abaixo desta linha, se necessário
-      ],
+              DataTable(
+                columns: [
+                  DataColumn(label: Text('Qtd')),
+                  DataColumn(label: Text('N')),
+                  DataColumn(label: Text('\$')),
+                  DataColumn(label: Text('T\$')),
+                  DataColumn(label: Text('A')),
+                ],
+                rows: produtoNota
+                    .map((produto) => DataRow(
+                          cells: [
+                            DataCell(
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 2),
+                                child: Text(produto.numero.toString()),
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 1),
+                                child: Text(produto.numero
+                                    .toString()), // Suponho que 'dadosN' seja um atributo do produto
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 1),
+                                child: Text(produto.numero
+                                    .toString()), // Suponho que 'dadosD' seja um atributo do produto
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 0),
+                                child: Text(produto.numero
+                                    .toString()), // Suponho que 'dadosT' seja um atributo do produto
+                              ),
+                            ),
+                            DataCell(
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: Size(20, 20),
+                                  side: BorderSide(
+                                      width: 0.2, color: Colors.blue),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 255, 61, 61),
+                                ),
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'X',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10,
+                                      color: Color.fromARGB(255, 7, 24, 41),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ))
+                    .toList(),
+              ),
+
+              Divider(), // Adiciona uma linha separadora
+              // Adicione mais DataTables ou outros widgets abaixo desta linha, se necessário
+            ],
+          )),
     );
   }
 }
