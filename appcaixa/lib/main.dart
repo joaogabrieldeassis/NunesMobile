@@ -59,7 +59,7 @@ class MyHomePage extends State<IniciarApp> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        DataTableExample(produtoNota)),
+                                        DataTableExampleCreate(produtoNota)),
                               );
                             },
                             icon: Image.asset(
@@ -268,11 +268,20 @@ class MyHomePage extends State<IniciarApp> {
 //     );
 //   }
 // }
-
-class DataTableExample extends StatelessWidget {
+class DataTableExampleCreate extends StatefulWidget {
   final List<ProdutoNota> produtoNota;
 
-  const DataTableExample(this.produtoNota);
+  DataTableExampleCreate(this.produtoNota);
+
+  @override
+  State<DataTableExampleCreate> createState() =>
+      DataTableExample(this.produtoNota);
+}
+
+class DataTableExample extends State<DataTableExampleCreate> {
+  final List<ProdutoNota> produtoNota;
+
+  DataTableExample(this.produtoNota);
 
   @override
   Widget build(BuildContext context) {
@@ -304,9 +313,9 @@ class DataTableExample extends StatelessWidget {
                 columns: [
                   DataColumn(label: Text('Qtd')),
                   DataColumn(label: Text('N')),
-                  DataColumn(label: Text('\$')),
+                  DataColumn(label: Text('U\$')),
                   DataColumn(label: Text('T\$')),
-                  DataColumn(label: Text('A')),
+                  DataColumn(label: Text('Ex')),
                 ],
                 rows: produtoNota
                     .map((produto) => DataRow(
@@ -315,7 +324,7 @@ class DataTableExample extends StatelessWidget {
                               Container(
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.symmetric(horizontal: 2),
-                                child: Text(produto.numero.toString()),
+                                child: Text(produto.quantidade.toString()),
                               ),
                             ),
                             DataCell(
@@ -330,7 +339,7 @@ class DataTableExample extends StatelessWidget {
                               Container(
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.symmetric(horizontal: 1),
-                                child: Text(produto.numero
+                                child: Text(produto.preco
                                     .toString()), // Suponho que 'dadosD' seja um atributo do produto
                               ),
                             ),
@@ -338,13 +347,15 @@ class DataTableExample extends StatelessWidget {
                               Container(
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.symmetric(horizontal: 0),
-                                child: Text(produto.numero
+                                child: Text(produto.precoTotal
                                     .toString()), // Suponho que 'dadosT' seja um atributo do produto
                               ),
                             ),
                             DataCell(
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  excluirProduto(produto);
+                                },
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   minimumSize: Size(20, 20),
@@ -373,10 +384,34 @@ class DataTableExample extends StatelessWidget {
                     .toList(),
               ),
 
-              Divider(), // Adiciona uma linha separadora
-              // Adicione mais DataTables ou outros widgets abaixo desta linha, se necessário
+              Divider(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 1.0),
+                    ),
+                    child: Text(
+                      'Finalizar',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                ],
+              ) // Adiciona uma linha separadora
             ],
           )),
     );
+  }
+
+  void excluirProduto(ProdutoNota produto) {
+    setState(() {
+      produtoNota.removeWhere((element) => element.Id == produto.Id);
+    });
   }
 }
